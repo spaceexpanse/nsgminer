@@ -296,8 +296,8 @@ jobs:
 
     - name: Test neoscrypt-xaya flag parsing
       run: |
-        echo "Testing --neoscrypt-xaya flag parsing..."
-        timeout 5 ./nsgminer --neoscrypt-xaya --url=http://localhost:8332 --user=xuser1 --pass=xpass1 2>&1 || true
+        echo "Testing --neoscrypt --xaya-byteswap flag parsing..."
+        timeout 5 ./nsgminer --neoscrypt --xaya-byteswap --url=http://localhost:8332 --user=xuser1 --pass=xpass1 2>&1 || true
         
     - name: Test algorithm detection
       run: |
