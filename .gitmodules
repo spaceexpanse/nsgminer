@@ -3,4 +3,4 @@
 	url = https://github.com/luke-jr/X6000_ztex_comm4.git
 [submodule "bitstream/ZtexBTCMiner"]
 	path = bitstreams/src/ZtexBTCMiner
-	url = hhtps://github.com/luke-jr/ZtexBTCMiner.git
+	url = https://github.com/luke-jr/ZtexBTCMiner.git
