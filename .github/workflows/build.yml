@@ -2,9 +2,9 @@ name: Build and Test
 
 on:
   push:
-    branches: [ builds ]
+    branches: [ patch-1 ]
   pull_request:
-    branches: [ builds ]
+    branches: [ patch-1 ]
   workflow_dispatch:
 
 env:
