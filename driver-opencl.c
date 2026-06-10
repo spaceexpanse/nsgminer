@@ -765,12 +765,12 @@ char *set_intensity(char *arg) {
 
     /* If no algorithm specified, default to NeoScrypt */
 #ifdef USE_NEOSCRYPT
-    if(!opt_neoscrypt && !opt_scrypt && !opt_sha256d)
+    if(!opt_neoscrypt && !opt_xayaswab && !opt_scrypt && !opt_sha256d)
       opt_neoscrypt = true;
 #endif
 
 #ifdef USE_NEOSCRYPT
-    if(opt_neoscrypt) {
+    if(opt_neoscrypt || opt_xayaswab) {
         min_intensity = MIN_NEOSCRYPT_INTENSITY;
         max_intensity = MAX_NEOSCRYPT_INTENSITY;
     } else
@@ -856,8 +856,8 @@ char *print_ndevs_and_exit(int *ndevs)
 #endif
 
 
-struct cgpu_info gpus[MAX_GPUDEVICES]; /* Maximum number apparently possible */
-struct cgpu_info *cpus;
+extern struct cgpu_info gpus[MAX_GPUDEVICES]; /* Maximum number apparently possible */
+extern struct cgpu_info *cpus;
 
 
 
@@ -1951,9 +1951,9 @@ static int64_t opencl_scanhash(struct thr_info *thr, struct work *work,
 
     uint threads = 0;
     while(threads < localThreads[0]) {
-        threads = 1 << (((opt_neoscrypt || opt_scrypt) ? 0 : 15) + gpu->intensity);
+        threads = 1 << (((opt_neoscrypt || opt_xayaswab || opt_scrypt) ? 0 : 15) + gpu->intensity);
         if(threads < localThreads[0]) {
-            if(gpu->intensity < (opt_neoscrypt ? gpu->max_intensity : max_intensity)) {
+            if(gpu->intensity < ((opt_neoscrypt || opt_xayaswab) ? gpu->max_intensity : max_intensity)) {
                 gpu->intensity++;
             } else {
                 threads = localThreads[0];

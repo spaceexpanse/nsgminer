@@ -176,6 +176,7 @@ bool opt_autoengine;
 
 bool opt_noadl;
 bool opt_nonvml;
+bool opt_reorder;
 #if HAVE_ADL
 bool adl_active = false;
 #endif
@@ -283,6 +284,7 @@ ullong current_diff = 0xFFFFFFFFFFFFFFFFULL;
 static char best_share[8] = "0";
 static char block_diff[8];
 uint64_t best_diff = 0;
+char current_fullhash[68];
 
 static bool known_blkheight_current;
 static uint32_t known_blkheight;
@@ -1894,7 +1896,7 @@ static bool work_decode(struct pool *pool, struct work *work, json_t *val)
 #endif
 		if (blkmk_get_data(work->tmpl, work->data, 80, time(NULL), NULL, &work->dataid) < 76)
 			return false;
-        if(!opt_neoscrypt || opt_xayaswab) swap32yes(work->data, work->data, 80 / 4);
+        if(!opt_neoscrypt || (opt_neoscrypt && opt_xayaswab)) swap32yes(work->data, work->data, 80 / 4);
 		memcpy(&work->data[80], "\0\0\0\x80\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\x80\x02\0\0", 48);
 
 		const struct blktmpl_longpoll_req *lp;
@@ -3515,7 +3517,7 @@ static void roll_work(struct work *work) {
 
         if(blkmk_get_data(work->tmpl, work->data, 80, time(NULL), NULL, &work->dataid) < 76)
           applog(LOG_ERR, "Failed to get next data from template; spinning wheels!");
-        if(!opt_neoscrypt || opt_xayaswab) swap32yes(work->data, work->data, 80 / 4);
+        if(!opt_neoscrypt || (opt_neoscrypt && opt_xayaswab)) swap32yes(work->data, work->data, 80 / 4);
 #if defined(USE_SHA256D) || defined(USE_SCRYPT)
         if(opt_sha256d || opt_scrypt) calc_midstate(work);
 #endif
