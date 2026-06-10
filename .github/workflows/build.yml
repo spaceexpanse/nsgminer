@@ -39,7 +39,7 @@ jobs:
 
     - name: Configure
       run: |
-        ./configure --enable-neoscrypt-xaya --without-curses
+        ./configure --without-curses
 
     - name: Build
       run: |
@@ -93,7 +93,7 @@ jobs:
 
     - name: Configure
       run: |
-        ./configure --enable-neoscrypt-xaya --enable-opencl --without-curses
+        ./configure --enable-opencl --without-curses
 
     - name: Build
       run: |
@@ -141,7 +141,7 @@ jobs:
 
     - name: Configure
       run: |
-        ./configure --enable-neoscrypt-xaya --enable-bitforce --enable-icarus --enable-modminer --enable-x6500 --enable-ztex --without-curses
+        ./configure --enable-bitforce --enable-icarus --enable-modminer --enable-x6500 --enable-ztex --without-curses
 
     - name: Build
       run: |
@@ -191,7 +191,7 @@ jobs:
     - name: Configure
       shell: msys2 {0}
       run: |
-        ./configure --enable-neoscrypt-xaya --without-curses LDFLAGS="-L/mingw64/lib" CPPFLAGS="-I/mingw64/include"
+        ./configure --without-curses LDFLAGS="-L/mingw64/lib" CPPFLAGS="-I/mingw64/include"
 
     - name: Build
       shell: msys2 {0}
@@ -234,7 +234,7 @@ jobs:
       run: |
         CPPFLAGS="-I$(brew --prefix libgpg-error)/include -I$(brew --prefix libgcrypt)/include" \
         LDFLAGS="-L$(brew --prefix libgpg-error)/lib -L$(brew --prefix libgcrypt)/lib" \
-        ./configure --enable-neoscrypt-xaya --without-curses
+        ./configure --without-curses
 
     - name: Build
       run: |
